@@ -28,9 +28,14 @@ function! s:Octopress(task)
     redraw!
 endfunction
 
+function! s:NewPost(title)
+  execute escape("!rake new_post[" . a:title . "]", "[]")
+endfunction
+
 function! s:Complete(ArgLead, CmdLine, CursorPos)
     return "clean\ndeploy\ngen_deploy\ngenerate\npush\nrsync\n"
 endfunction
 
 command! -bang -nargs=* -complete=custom,s:Complete Octopress call s:Octopress(<q-args>)
+command! -bang -nargs=* -complete=custom,s:Complete NewPost call s:NewPost(<q-args>)
 
